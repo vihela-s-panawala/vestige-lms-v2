@@ -235,7 +235,7 @@ The public preview is intentionally limited and does **not** represent the compl
 
 ### 🌐 Try the prototype
 
-**[Open Live Preview](https://combined-maths-lms-v1.vercel.app/)**
+**[Open Live Preview](https://vestige-lms-v2.vercel.app/)**
 
 > **Note:** The public preview currently uses sample data and is intended to demonstrate the interface and workflow. Real student information is not exposed through the public demo.
 
