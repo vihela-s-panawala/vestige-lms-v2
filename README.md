@@ -1,4 +1,4 @@
-# 🎓 Advanced Learning & Performance Management System
+# 🎓 VESTIGE LMS - An Advanced Learning & Performance Management System
 
 > **A practical LMS and academic performance analysis platform built to track student progress, identify learning gaps, and support data-driven teaching.**
 > ---
@@ -519,13 +519,4 @@ Copyright 2026 Vihela Panawala
 
 # 📸 Screenshots
 
-<img width="1893" height="981" alt="Screenshot 2026-09-26 155003" src="https://github.com/user-attachments/assets/b5e5ef25-9a33-494a-9356-e9526105759f" />
-<img width="1881" height="986" alt="Screenshot 2026-09-26 155123gggg" src="https://github.com/user-attachments/assets/55af1aec-ca75-463f-8e24-bbad9faf1d9a" />
-<img width="655" height="957" alt="Screenshot 2026-09-26 155406" src="https://github.com/user-attachments/assets/b25057a5-2b28-4ca5-a23e-a6000e4713c6" />
-<img width="645" height="283" alt="Screenshot 2026-09-26 155437" src="https://github.com/user-attachments/assets/e610f1a1-a6ca-42b9-97ef-f1ddb02f8b8d" />
 
-<img width="1906" height="975" alt="Screenshot 2026-09-26 155255" src="https://github.com/user-attachments/assets/9df1316b-2156-4664-a1e2-327bd4e12cf8" />
-<img width="1901" height="977" alt="Screenshot 2026-09-26 155201" src="https://github.com/user-attachments/assets/c13b58d3-df5a-4ff0-9104-c44bd0b67390" />
-<img width="1911" height="977" alt="Screenshot 2026-09-26 155232" src="https://github.com/user-attachments/assets/0a02d264-7a64-442f-9fa9-c74ed05d403a" />
-<img width="1917" height="982" alt="Screenshot 2026-09-26 155332" src="https://github.com/user-attachments/assets/8a818ce2-e4a7-45be-9fa4-58e84a8bd5f2" />
----
