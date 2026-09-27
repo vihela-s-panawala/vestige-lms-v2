@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vestige LMS - Admin Portal</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      .admin-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 30px 20px 60px 20px;
+      }
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--border-burgundy);
+      }
+      .admin-title-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .back-btn {
+        background: var(--burgundy);
+        color: var(--white);
+        border: 1px solid var(--burgundy-bright);
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: background 0.2s;
+      }
+      .back-btn:hover {
+        background: var(--burgundy-hover);
+      }
+      .admin-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--border-burgundy);
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .tab-btn {
+        background: var(--black-panel);
+        color: var(--muted);
+        border: 1px solid var(--border-burgundy);
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .tab-btn.active, .tab-btn:hover {
+        background: var(--burgundy);
+        color: var(--white);
+        border-color: var(--burgundy-bright);
+      }
+      .panel-card {
+        background: var(--black-card);
+        border: 1px solid var(--border-burgundy);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 30px;
+      }
+      .panel-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .panel-title::before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: var(--burgundy-bright);
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .btn-primary {
+        background: var(--burgundy);
+        color: var(--white);
+        border: 1px solid var(--burgundy-bright);
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-primary:hover {
+        background: var(--burgundy-hover);
+      }
+      .btn-danger {
+        background: #8e1515;
+        color: var(--white);
+        border: 1px solid #c0392b;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      .admin-table th, .admin-table td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .admin-table th {
+        background: var(--burgundy-dark);
+        color: var(--white);
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+      }
+      body.light-mode .panel-card {
+        background: var(--white);
+        border-color: var(--border-burgundy);
+      }
+      body.light-mode .panel-title {
+        color: var(--black);
+      }
+      body.light-mode .admin-table td {
+        border-bottom-color: rgba(0, 0, 0, 0.08);
+      }
+      body.light-mode .tab-btn {
+        background: #e0e0e0;
+        color: var(--black);
+      }
+      body.light-mode .tab-btn.active {
+        background: var(--burgundy);
+        color: var(--white);
+      }
+    </style>
+  </head>
+  <body class="page-admin" data-page="admin">
+    <div class="admin-container">
+      
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div class="admin-title-group">
+          <a href="./index.html" class="back-btn">← Exit Admin</a>
+          <h1 class="brand-title" style="font-size: 1.8rem;">Vestige LMS - Admin Portal</h1>
+        </div>
+
+        <div class="top-bar" style="width: auto;">
+          <button id="themeToggle" class="theme-toggle-btn" type="button">🌙 Dark mode</button>
+        </div>
+      </header>
+
+      <!-- NAVIGATION TABS -->
+      <div class="admin-tabs">
+        <button class="tab-btn active" data-target="marksPanel">Manage Marks</button>
+        <button class="tab-btn" data-target="studentsPanel">Manage Roster</button>
+        <button class="tab-btn" data-target="settingsPanel">Security Settings</button>
+      </div>
+
+      <!-- PANEL 1: MARKS MANAGEMENT -->
+      <section id="marksPanel" class="panel-card admin-section">
+        <h2 class="panel-title">Add / Edit Paper Score</h2>
+        <form id="markForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="studentSelect">Select Student</label>
+              <select id="studentSelect" class="custom-input" required></select>
+            </div>
+            <div class="form-group">
+              <label for="paperNumberInput">Paper Number</label>
+              <input type="number" id="paperNumberInput" class="custom-input" min="1" value="15" required />
+            </div>
+            <div class="form-group">
+              <label for="paperTypeSelect">Paper Type</label>
+              <select id="paperTypeSelect" class="custom-input" required>
+                <option value="Pure">Pure Mathematics</option>
+                <option value="Applied">Applied Mathematics</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="scoreInput">Score (%)</label>
+              <input type="number" id="scoreInput" class="custom-input" min="0" max="100" placeholder="e.g. 75" required />
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">Save Mark Entry</button>
+        </form>
+
+        <h3 style="margin-top: 35px; margin-bottom: 15px; font-size: 1.1rem; color: var(--burgundy-bright);">Existing Marks Records</h3>
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Paper</th>
+                <th>Type</th>
+                <th>Student</th>
+                <th>Score</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="marksTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PANEL 2: STUDENT ROSTER MANAGEMENT -->
+      <section id="studentsPanel" class="panel-card admin-section" style="display: none;">
+        <h2 class="panel-title">Manage Student Roster</h2>
+        <form id="addStudentForm" style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px;">
+          <input type="text" id="newStudentName" class="custom-input" style="max-width: 320px;" placeholder="Enter new student name..." required />
+          <button type="submit" class="btn-primary">Add Student</button>
+        </form>
+
+        <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: var(--burgundy-bright);">Registered Students</h3>
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="rosterTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PANEL 3: SECURITY SETTINGS -->
+      <section id="settingsPanel" class="panel-card admin-section" style="display: none;">
+        <h2 class="panel-title">Update Admin PIN</h2>
+        <form id="pinUpdateForm" style="max-width: 380px;">
+          <div class="form-group">
+            <label for="currentPinInput">Current PIN</label>
+            <input type="password" id="currentPinInput" class="custom-input" placeholder="Enter current PIN" required />
+          </div>
+          <div class="form-group">
+            <label for="newPinInput">New PIN</label>
+            <input type="password" id="newPinInput" class="custom-input" placeholder="Enter new PIN" required />
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top: 10px;">Update PIN</button>
+        </form>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer" style="margin-top: 40px; border-radius: 8px;">
+        <p>© 2026 Vihela Panawala. All rights reserved.</p>
+      </footer>
+
+    </div>
+
+    <!-- ADMIN LOGIC SCRIPT -->
+    <script type="module">
+      import { PIN, initialStudents, sampleMarks } from './js/data.js';
+
+      const STORAGE_KEY = 'combined-maths-state';
+
+      // Theme toggle support
+      function applyTheme(theme) {
+        const isLight = theme === 'light';
+        document.body.classList.toggle('light-mode', isLight);
+        const themeToggleBtn = document.getElementById('themeToggle');
+        if (themeToggleBtn) {
+          themeToggleBtn.textContent = isLight ? '☀️ Light mode' : '🌙 Dark mode';
+        }
+      }
+
+      const savedTheme = localStorage.getItem('combined-maths-theme') || 'dark';
+      applyTheme(savedTheme);
+
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const nextTheme = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+        applyTheme(nextTheme);
+        localStorage.setItem('combined-maths-theme', nextTheme);
+      });
+
+      if (localStorage.getItem('vestige-admin-auth') !== 'true') {
+        window.location.href = './index.html';
+      }
+
+      // Default Admin State
+      let state = {
+        students: [...initialStudents].sort((a, b) => a.localeCompare(b)),
+        marks: [...sampleMarks],
+        pin: 'demo-pin'
+      };
+
+      // Load state from local or session storage
+      function loadState() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed.students) && parsed.students.length > 0) state.students = parsed.students;
+            if (Array.isArray(parsed.marks)) state.marks = parsed.marks;
+            if (parsed.pin) state.pin = parsed.pin;
+          }
+        } catch (e) {
+          console.warn('Unable to read state from storage', e);
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          console.warn('Unable to save state to storage', e);
+        }
+      }
+
+      loadState();
+
+      // Tab switching logic
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const panels = document.querySelectorAll('.admin-section');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          panels.forEach(p => p.style.display = 'none');
+
+          btn.classList.add('active');
+          const targetId = btn.getAttribute('data-target');
+          document.getElementById(targetId).style.display = 'block';
+        });
+      });
+
+      // Populate student select dropdowns
+      function renderStudentDropdown() {
+        const studentSelect = document.getElementById('studentSelect');
+        studentSelect.innerHTML = '';
+        state.students.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          studentSelect.appendChild(opt);
+        });
+      }
+
+      // Render Marks Table
+      function renderMarksTable() {
+        const tbody = document.getElementById('marksTableBody');
+        tbody.innerHTML = '';
+
+        if (state.marks.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No marks recorded yet.</td></tr>`;
+          return;
+        }
+
+        // Sort marks by paper number descending
+        const sortedMarks = [...state.marks].sort((a, b) => b.paperNumber - a.paperNumber);
+
+        sortedMarks.forEach((m, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>Paper ${m.paperNumber}</td>
+            <td>${m.paperType}</td>
+            <td>${m.studentName}</td>
+            <td><strong>${m.score}%</strong></td>
+            <td><button class="btn-danger" data-index="${idx}">Delete</button></td>
+          `;
+
+          tr.querySelector('.btn-danger').addEventListener('click', () => {
+            state.marks = state.marks.filter((_, i) => i !== idx);
+            saveState();
+            renderMarksTable();
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Render Roster Table
+      function renderRosterTable() {
+        const tbody = document.getElementById('rosterTableBody');
+        tbody.innerHTML = '';
+
+        state.students.forEach((student, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td>${student}</td>
+            <td><button class="btn-danger" data-name="${student}">Remove</button></td>
+          `;
+
+          tr.querySelector('.btn-danger').addEventListener('click', () => {
+            if (confirm(`Remove ${student} from the roster?`)) {
+              state.students = state.students.filter(s => s !== student);
+              saveState();
+              renderStudentDropdown();
+              renderRosterTable();
+            }
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Handle Form Submissions
+      document.getElementById('markForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const studentName = document.getElementById('studentSelect').value;
+        const paperNumber = Number(document.getElementById('paperNumberInput').value);
+        const paperType = document.getElementById('paperTypeSelect').value;
+        const score = Number(document.getElementById('scoreInput').value);
+
+        // Update existing entry or create new
+        const existingIdx = state.marks.findIndex(
+          m => m.paperNumber === paperNumber && m.studentName === studentName && m.paperType === paperType
+        );
+
+        if (existingIdx >= 0) {
+          state.marks[existingIdx].score = score;
+        } else {
+          state.marks.push({ paperNumber, paperType, studentName, score });
+        }
+
+        saveState();
+        renderMarksTable();
+        alert(`Saved ${score}% for ${studentName} (Paper ${paperNumber} - ${paperType})`);
+        document.getElementById('scoreInput').value = '';
+      });
+
+      document.getElementById('addStudentForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('newStudentName');
+        const name = input.value.trim();
+
+        if (name && !state.students.some(s => s.toLowerCase() === name.toLowerCase())) {
+          state.students.push(name);
+          state.students.sort((a, b) => a.localeCompare(b));
+          saveState();
+          renderStudentDropdown();
+          renderRosterTable();
+          input.value = '';
+          alert(`Added ${name} to roster.`);
+        } else {
+          alert('Student already exists or invalid name.');
+        }
+      });
+
+      document.getElementById('pinUpdateForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const currentPin = document.getElementById('currentPinInput').value;
+        const newPin = document.getElementById('newPinInput').value;
+
+        if (currentPin === state.pin) {
+          state.pin = newPin;
+          saveState();
+          alert('Admin PIN updated successfully.');
+          document.getElementById('currentPinInput').value = '';
+          document.getElementById('newPinInput').value = '';
+        } else {
+          alert('Incorrect current PIN.');
+        }
+      });
+
+      // Initial Render
+      renderStudentDropdown();
+      renderMarksTable();
+      renderRosterTable();
+    </script>
+  </body>
+</html>
