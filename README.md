@@ -1,4 +1,4 @@
-# 🎓 VESTIGE LMS - An Advanced Learning & Performance Management System
+# 🎓 VESTIGE 2.0 - An Advanced Learning & Performance Management System
 
 > **A practical LMS and academic performance analysis platform built to track student progress, identify learning gaps, and support data-driven teaching.**
 > ---
