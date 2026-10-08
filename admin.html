@@ -271,7 +271,7 @@
 
     <!-- ADMIN LOGIC SCRIPT -->
     <script type="module">
-      import { PIN, initialStudents, sampleMarks } from './js/data.js';
+      import { DEMO_PIN, initialStudents, sampleMarks } from './js/data.js';
 
       const STORAGE_KEY = 'combined-maths-state';
 
@@ -302,7 +302,7 @@
       let state = {
         students: [...initialStudents].sort((a, b) => a.localeCompare(b)),
         marks: [...sampleMarks],
-        pin: 'demo-pin'
+        pin: DEMO_PIN
       };
 
       // Load state from local or session storage
@@ -457,22 +457,6 @@
           alert(`Added ${name} to roster.`);
         } else {
           alert('Student already exists or invalid name.');
-        }
-      });
-
-      document.getElementById('pinUpdateForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const currentPin = document.getElementById('currentPinInput').value;
-        const newPin = document.getElementById('newPinInput').value;
-
-        if (currentPin === state.pin) {
-          state.pin = newPin;
-          saveState();
-          alert('Admin PIN updated successfully.');
-          document.getElementById('currentPinInput').value = '';
-          document.getElementById('newPinInput').value = '';
-        } else {
-          alert('Incorrect current PIN.');
         }
       });
 
