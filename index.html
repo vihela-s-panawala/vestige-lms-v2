@@ -8,6 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      .square-accent,
+      .dot-accent {
+        transition: transform 600ms ease;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .square-accent,
+        .dot-accent {
+          transition: none;
+        }
+      }
+    </style>
   </head>
   <body class="page-login" data-page="login">
     <div class="lms-container">
@@ -140,6 +153,43 @@
 
     </div>
 
+    <script>
+      const brandPanel = document.querySelector(".brand-panel");
+      const brandLogo = brandPanel.querySelector(".brand-logo-container");
+      const squareAccent = brandLogo.querySelector(".square-accent");
+      const dotAccent = brandLogo.querySelector(".dot-accent");
+      let accentsSwapped = false;
+
+      const resetAccents = () => {
+        accentsSwapped = false;
+        squareAccent.style.transform = "";
+        dotAccent.style.transform = "";
+      };
+
+      brandPanel.addEventListener("pointermove", (event) => {
+        const logoPosition = brandLogo.getBoundingClientRect();
+        const pointerOverLogo =
+          event.clientX >= logoPosition.left &&
+          event.clientX <= logoPosition.right &&
+          event.clientY >= logoPosition.top &&
+          event.clientY <= logoPosition.bottom;
+
+        if (pointerOverLogo === accentsSwapped) return;
+        accentsSwapped = pointerOverLogo;
+
+        if (!pointerOverLogo) {
+          resetAccents();
+          return;
+        }
+
+        const squarePosition = squareAccent.getBoundingClientRect();
+        const dotPosition = dotAccent.getBoundingClientRect();
+        squareAccent.style.transform = `translate(${dotPosition.left - squarePosition.left}px, ${dotPosition.top - squarePosition.top}px)`;
+        dotAccent.style.transform = `translate(${squarePosition.left - dotPosition.left}px, ${squarePosition.top - dotPosition.top}px)`;
+      });
+
+      brandPanel.addEventListener("pointerleave", resetAccents);
+    </script>
     <script type="module" src="./js/app.js"></script>
   </body>
 </html>
